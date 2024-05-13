@@ -1,6 +1,6 @@
 "use strict";
 
-let categories = ["Adventures", "Arts & Crafts", "Museums", "Wine Tastings", "Other"];
+let categories = [ {name: "Adventures"}, {name: "Arts & Crafts"}, {name:"Museums"}, {name:"Wine Tastings"}, {name: "Other"}];
 
 let activities = [
    {
@@ -102,5 +102,33 @@ let activities = [
 ];
 
 window.onload = function(){
+
+    initDropdown();
+
+    let TheButton = document.querySelector("#theButton")
+
+    TheButton.addEventListener("click", displayCategories)
+
+
+}
+
+
+function displayCategories(event){
+
+    event.preventDefault();
+
+    let theDropDown = document.querySelector("#categoriesSelect");
+
+    let resultsParagraph = document.querySelector("#results");
+
+    let selectedIndex = theDropDown.selectedIndex -1;
+
+    if(theDropDown.value === ""){
+        resultsParagraph.innerHTML = "";
+    }else{
+        let selectedCategory = categories[selectedIndex];
+
+        resultsParagraph.innerHTML = `You selected ${selectedCategory.name}`
+    }
 
 }
