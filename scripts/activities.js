@@ -1,6 +1,6 @@
 "use strict";
 
-let categories = ["Adventures" , "Arts & Crafts" ,"Museums" ,"Wine Tastings" ,"Other" ];
+let categories = ["Adventures", "Arts & Crafts", "Museums", "Wine Tastings", "Other"];
 
 let activities = [
     {
@@ -105,13 +105,17 @@ window.onload = function () {
 
     initDropdown();
 
-    let theForm = document.querySelector("#categoriesForm");
+    // let theForm = document.querySelector("#categoriesForm");
 
     let selection = document.querySelector("#categoriesSelect")
-
-    theForm.addEventListener("submit", displayCategories)
+    
+    let activitiesSel = document.querySelector("#activitiesList")
+    
+    // theForm.addEventListener("submit", displayCategories)
 
     selection.addEventListener("change", activitiesDropDown)
+
+    activitiesSel.addEventListener("change", displayActivities)
 
 
 }
@@ -137,9 +141,6 @@ function displayCategories(event) {
 
 }
 
-
-
-
 function initDropdown() {
 
     let theDropDown = document.querySelector("#categoriesSelect");
@@ -153,7 +154,7 @@ function initDropdown() {
     theDropDown.appendChild(defaultOption);
 
     let numOfCategories = categories.length
-   console.log(numOfCategories)
+    console.log(numOfCategories)
     for (let i = 0; i < numOfCategories; i++) {
 
         let newOption = document.createElement("option");
@@ -164,29 +165,27 @@ function initDropdown() {
 
         theDropDown.appendChild(newOption)
         console.log(newOption)
-       
+
     }
-
-
-
 }
-function activitiesDropDown(){
+
+function activitiesDropDown() {
     let dropDown = document.querySelector("#activitiesList");
-     dropDown.length = 0;
-    let potato = document.querySelector ("#categoriesSelect").value;
+    dropDown.length = 0;
+    let potato = document.querySelector("#categoriesSelect").value;
 
     let matching = getActivitiesInCategory(activities, potato);
 
     let defaultOptions = document.createElement("option")
 
-     defaultOptions.textContent = "Type of Activities"
-     defaultOptions.value = "";
+    defaultOptions.textContent = "Type of Activities"
+    defaultOptions.value = "";
 
     dropDown.appendChild(defaultOptions);
 
     let connection = matching.length
 
-    for(let i=0; i < connection; i++){
+    for (let i = 0; i < connection; i++) {
 
         let newOption = document.createElement("option")
 
@@ -197,9 +196,6 @@ function activitiesDropDown(){
         dropDown.appendChild(newOption);
 
     }
-
-
-    
 }
 
 function getActivitiesInCategory(activities, category) {
@@ -216,8 +212,38 @@ function getActivitiesInCategory(activities, category) {
             matching.push(activities[i]);
         }
     }
-    
+
     //return all the matching menu items
     return matching;
 }
 
+function displayActivities(){
+
+let resultsParagraph = document.querySelector("#results");
+let activityList = document.querySelector("#activitiesList")
+
+let selectedIndex = activityList.selectedIndex -1;
+
+let potato = document.querySelector("#categoriesSelect")
+
+let matching = []
+
+for (let i= 0; i <activities.length; i++) {
+    if (potato.value === activities[i].category){
+        matching.push(activities[i])
+    }
+}
+
+let selectedStuff = matching[selectedIndex];
+console.log(matching[selectedIndex].description)
+resultsParagraph.innerHTML = `
+<div> you chose the catergory ${selectedStuff.category} Id: ${selectedStuff.id}</div>
+<div> The activity you chose was ${selectedStuff.name}</div>
+<div>Description:</div>
+<div>${selectedStuff.description}</div>
+<div>${selectedStuff.location}</div>
+<div>${selectedStuff.price}</div>
+`
+
+
+}
