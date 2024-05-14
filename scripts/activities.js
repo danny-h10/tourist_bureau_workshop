@@ -107,7 +107,11 @@ window.onload = function () {
 
     let theForm = document.querySelector("#categoriesForm");
 
+    let selection = document.querySelector("#categoriesSelect")
+
     theForm.addEventListener("submit", displayCategories)
+
+    selection.addEventListener("change", activitiesDropDown)
 
 
 }
@@ -132,6 +136,8 @@ function displayCategories(event) {
     }
 
 }
+
+
 
 
 function initDropdown() {
@@ -164,3 +170,54 @@ function initDropdown() {
 
 
 }
+function activitiesDropDown(){
+    let dropDown = document.querySelector("#activitiesList");
+     dropDown.length = 0;
+    let potato = document.querySelector ("#categoriesSelect").value;
+
+    let matching = getActivitiesInCategory(activities, potato);
+
+    let defaultOptions = document.createElement("option")
+
+     defaultOptions.textContent = "Type of Activities"
+     defaultOptions.value = "";
+
+    dropDown.appendChild(defaultOptions);
+
+    let connection = matching.length
+
+    for(let i=0; i < connection; i++){
+
+        let newOption = document.createElement("option")
+
+        newOption.textContent = matching[i].name
+
+        newOption.value = matching[i].id
+
+        dropDown.appendChild(newOption);
+
+    }
+
+
+    
+}
+
+function getActivitiesInCategory(activities, category) {
+
+    //start by creating an empty list to hold our matches
+    let matching = [];
+    //number of items on the menu
+    let numItems = activities.length;
+
+    //loop over the activities to find matches
+    for (let i = 0; i < numItems; i++) {
+        if (activities[i].category === category) {
+            //add that activity to our matches array
+            matching.push(activities[i]);
+        }
+    }
+    
+    //return all the matching menu items
+    return matching;
+}
+
