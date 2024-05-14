@@ -239,10 +239,9 @@ console.log(matching[selectedIndex].description)
 resultsParagraph.innerHTML = `
 <div> you chose the catergory ${selectedStuff.category} Id: ${selectedStuff.id}</div>
 <div> The activity you chose was ${selectedStuff.name}</div>
-<div>Description:</div>
-<div>${selectedStuff.description}</div>
-<div>${selectedStuff.location}</div>
-<div>${selectedStuff.price}</div>
+<div>Description: ${selectedStuff.description}</div>
+<div>Location: ${selectedStuff.location}</div>
+<div>Price: $${selectedStuff.price}</div>
 `
 
 
